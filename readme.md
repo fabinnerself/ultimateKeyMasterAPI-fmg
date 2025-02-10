@@ -1,14 +1,15 @@
-# Motorcycle Repair Management API
+# Ultimate Key MAster API
 
 The API is built using the following technologies:
 - Node.js
 - TypeScript
 - TypeORM
 - dotenv
-- bcrypt
 - environment variables
 - Postman
-Is designed to manage users and motorcycle repairs. It provides full CRUD functionality for users and repairs, including features to validate record existence and control the repair status transitions.
+
+
+Is designed to manage users, security boxes, credential storage, and PINs while providing full CRUD operations with data validations and security features. The API ensures secure user authentication, encrypted password handling, allowing users to manage their accounts, security boxes, credentials, and PINs with confidence. To enhance data integrity, users can only soft delete their own accounts and associated resources, ensuring that critical information remains recoverable while maintaining privacy and security standards 
 
 ---
 
@@ -111,11 +112,11 @@ curl --location --request DELETE 'localhost:3000/api/v1/users/1'
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/fabinnerself/-repairAPI-fmg-V3.git
+   git clone https://github.com/fabinnerself/ultimateKeyMasterAPI-fmg.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd -repairAPI-fmg-V3/
+   cd ultimateKeyMasterAPI-fmg/
    ```
 3. Install dependencies:
    ```bash
@@ -132,7 +133,7 @@ npm run dev
 
 
 ## Additional Documentation
-A detailed Postman collection documenting the API endpoints is available at the following link: [Postman Documentation](https://documenter.getpostman.com/view/22674808/2sAYQggnth).
+A detailed Postman collection documenting the API endpoints is available at the following link: [Postman Documentation](https://documenter.getpostman.com/view/22674808/2sAYX9mfGQ).
 
 
 ## Contributing
