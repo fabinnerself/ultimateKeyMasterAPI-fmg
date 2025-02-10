@@ -114,7 +114,6 @@ export class BoxService {
     try {
       return await box_found.save();
     } catch (error: any) {
-
       throw CustomError.internalServer("Error updating a Security box record ");
     }
   }

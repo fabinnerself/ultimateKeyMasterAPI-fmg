@@ -22,8 +22,7 @@ import {
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
-    @Column("varchar", {
-        length: 6,
+    @Column("varchar", {        
         nullable: false,
     })
     pin_code: string;  

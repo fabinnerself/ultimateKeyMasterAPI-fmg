@@ -14,8 +14,9 @@ export { UpdateCredentialDTO } from "./dtos/credential/update-credential.dto";
 
 
 export { RegisterPinDTO } from "./dtos/pin/create-pin.dto";
+export { UpdatePinDTO } from "./dtos/pin/update-pin.dto";
 
-
+//TODO eliminar 
 export {CreateRepairDTO} from "./dtos/repair/repair.dto";
 export { UpateRepairDTO } from "./dtos/repair/update-repair.dto";
 

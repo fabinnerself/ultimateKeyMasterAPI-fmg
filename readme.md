@@ -1,4 +1,4 @@
-# Ultimate Key MAster API
+# Ultimate Key Master API
 
 The API is built using the following technologies:
 - Node.js

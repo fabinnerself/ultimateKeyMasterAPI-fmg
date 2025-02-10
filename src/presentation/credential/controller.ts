@@ -3,8 +3,6 @@ import { CredentialService } from "../services/credential.service";
 import { CustomError, RegisterCredentialDTO, UpdateCredentialDTO } from "../../domain";
 import { regularExp } from "../../config";
 
-
-
 export class CredentialController {
   constructor(private readonly credentialService: CredentialService) { }
 
