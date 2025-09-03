@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: ukmapi-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ukm
+      POSTGRES_USER: ukm_user
+      POSTGRES_PASSWORD: ukm_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    container_name: ukmapi-app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PORT: 3000
+      HOST_DATABASE: db
+      PORT_DATABASE: 5432
+      DATABASE: ukm
+      USERNAME_DATABASE: ukm_user
+      PASSWORD_DATABASE: ukm_password
+      JWT_SEED: change_me_dev
+      JWT_EXPIRE_IN: 1d
+      SEND_EMAIL: "false"
+      MAILER_SERVICE: gmail
+      MAILER_EMAIL: example@example.com
+      MAILER_SECRET_KEY: example_key
+      WEBSERVICE_URL: http://localhost:3000
+    ports:
+      - "3000:3000"
+
+volumes:
+  db_data:

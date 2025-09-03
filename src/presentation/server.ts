@@ -14,8 +14,8 @@ export class Server {
   private readonly port: number;
   private readonly routes: Router;
   private readonly acceptedOrigins: string[] = [
-    "http://localhost:5173",
-    "http://localhost:4200",
+        "http://localhost:5173",
+        "http://localhost:4200",
   ];
 
   constructor(options: Options) {
@@ -41,12 +41,28 @@ export class Server {
       cors({
         origin: (origin, callback) => {
           if (!origin) {
-            return callback(null, true); //acepto el trafico y dejo pasar
+            return callback(null, true); // acepto el tráfico sin header Origin (curl/Postman/health)
           }
 
-          if (this.acceptedOrigins.includes(origin)) {
-            return callback(null, true);
-          }
+          const isAllowed = this.acceptedOrigins.some((pattern) => {
+            if (!pattern) return false;
+            // Wildcard support: *.domain.com
+            if (pattern.startsWith("*.") && origin) {
+              const domain = pattern.slice(2).toLowerCase();
+              try {
+                const hostname = new URL(origin).hostname.toLowerCase();
+                return (
+                  hostname === domain || hostname.endsWith("." + domain)
+                );
+              } catch {
+                return false;
+              }
+            }
+            // Exact match
+            return pattern === origin;
+          });
+
+          if (isAllowed) return callback(null, true);
 
           return callback(new Error("Not allowed by CORS"));
         },
@@ -54,6 +70,11 @@ export class Server {
     );
     this.app.use(hpp());
     this.app.use(helmet());
+
+    // Health check endpoint for deployment platforms
+    this.app.get("/health", (_req, res) => {
+      res.status(200).json({ status: "ok" });
+    });
 
     this.app.use(this.routes);
 

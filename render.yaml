@@ -1,0 +1,50 @@
+services:
+  - type: web
+    name: ukmapi
+    env: docker
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /health
+    buildCommand: ''
+    startCommand: ''
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Render injects PORT automatically inside the container
+      - key: HOST_DATABASE
+        fromDatabase: ukm-db
+        property: host
+      - key: USERNAME_DATABASE
+        fromDatabase: ukm-db
+        property: user
+      - key: PASSWORD_DATABASE
+        fromDatabase: ukm-db
+        property: password
+      - key: DATABASE
+        fromDatabase: ukm-db
+        property: database
+      - key: PORT_DATABASE
+        fromDatabase: ukm-db
+        property: port
+      # App secrets (set in Render dashboard or via blueprint env group)
+      - key: JWT_SEED
+        sync: false
+      - key: JWT_EXPIRE_IN
+        value: 1d
+      - key: SEND_EMAIL
+        value: "false"
+      - key: MAILER_SERVICE
+        value: gmail
+      - key: MAILER_EMAIL
+        sync: false
+      - key: MAILER_SECRET_KEY
+        sync: false
+      # Optionally set WEBSERVICE_URL manually in dashboard or via env groups
+      - key: WEBSERVICE_URL
+        sync: false
+
+# Managed Postgres on Render
+# Note: env mappings above use fields, but HOST extraction from connection string isn't automatic; consider using DATABASE_URL and parse in app.
+databases:
+  - name: ukm-db
+    plan: free
