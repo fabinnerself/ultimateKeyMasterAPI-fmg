@@ -8,6 +8,9 @@ The API is built using the following technologies:
 - environment variables
 - Postman
 
+ #🔗Routes The following resource is available:
+
+ https://ultimatekeymasterapi-fmg.onrender.com 
 
 Is designed to manage users, security boxes, credential storage, and PINs while providing full CRUD operations with data validations and security features. The API ensures secure user authentication, encrypted password handling, allowing users to manage their accounts, security boxes, credentials, and PINs with confidence. To enhance data integrity, users can only soft delete their own accounts and associated resources, ensuring that critical information remains recoverable while maintaining privacy and security standards 
 
